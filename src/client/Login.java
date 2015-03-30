@@ -107,7 +107,6 @@ public class Login extends JFrame {
 	class forget implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 			if(e.getSource()==ButtonForgotPassword){
 				try{ 
 					JOptionPane masuk = new JOptionPane();
@@ -126,26 +125,6 @@ public class Login extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==ButtonSignIn){
-=======
-			if(e.getSource()==BtnArith){
-				try{ 
-					JOptionPane masuk = new JOptionPane();
-					int a = Integer.valueOf(masuk.showInputDialog("Masukan angka pertama"));
-					int b = Integer.valueOf(masuk.showInputDialog("Masukan angka pembagi pertama"));
-					int c = a/b;
-					JOptionPane.showMessageDialog(null, "Perhitungan Dapat Dilakukan");
-				}catch(ArithmeticException err){
-					JOptionPane.showMessageDialog(null, "Syntax Error");
-				}
-			}
-		}
-	}
-	
-	class signin implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==BtnNeg){
->>>>>>> branch 'master' of https://github.com/yusrilmr/RRunner.git
 				try {
 					JOptionPane masuk = new JOptionPane();
 					int ukuranArr = Integer.valueOf(masuk.showInputDialog("Masukan Ukuran Array"));
