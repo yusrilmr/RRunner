@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Register extends JFrame{
+public class SignUp extends JFrame{
 	JLabel LabelTitle;
 	JLabel LabelUsername;
 	JLabel LabelPassword;
@@ -24,7 +24,7 @@ public class Register extends JFrame{
 	JPasswordField PasswordFieldPassword;
 	JPasswordField PasswordFieldRepeatPassword;
 	
-	public Register(){
+	public SignUp(){
 		
 		registerSignUp RSU = new registerSignUp();
 		
@@ -85,7 +85,7 @@ public class Register extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		Register register = new Register();
+		SignUp signup = new SignUp();
 	}
 	
 	class registerSignUp implements ActionListener{
