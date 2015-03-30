@@ -117,21 +117,6 @@ public class Login extends JFrame {
 				}catch(ArithmeticException err){
 					JOptionPane.showMessageDialog(null, "Syntax Error");
 				}
-	class signin implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==ButtonSignIn){
-=======
-			if(e.getSource()==ButtonForgotPassword){
-				try{ 
-					JOptionPane masuk = new JOptionPane();
-					int a = Integer.valueOf(masuk.showInputDialog("Masukan angka pertama"));
-					int b = Integer.valueOf(masuk.showInputDialog("Masukan angka pembagi pertama"));
-					int c = a/b;
-					JOptionPane.showMessageDialog(null, "Perhitungan Dapat Dilakukan");
-				}catch(ArithmeticException err){
-					JOptionPane.showMessageDialog(null, "Syntax Error");
-				}
 			}
 		}
 	}
