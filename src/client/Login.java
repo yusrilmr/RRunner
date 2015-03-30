@@ -107,7 +107,7 @@ public class Login extends JFrame {
 	class forget implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==BtnArith){
+			if(e.getSource()==ButtonForgotPassword){
 				try{ 
 					JOptionPane masuk = new JOptionPane();
 					int a = Integer.valueOf(masuk.showInputDialog("Masukan angka pertama"));
@@ -124,7 +124,7 @@ public class Login extends JFrame {
 	class signin implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==BtnNeg){
+			if(e.getSource()==ButtonSignIn){
 				try {
 					JOptionPane masuk = new JOptionPane();
 					int ukuranArr = Integer.valueOf(masuk.showInputDialog("Masukan Ukuran Array"));
