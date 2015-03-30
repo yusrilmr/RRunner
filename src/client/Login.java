@@ -108,7 +108,7 @@ public class Login extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==BtnArith){
-				try{
+				try{ 
 					JOptionPane masuk = new JOptionPane();
 					int a = Integer.valueOf(masuk.showInputDialog("Masukan angka pertama"));
 					int b = Integer.valueOf(masuk.showInputDialog("Masukan angka pembagi pertama"));
