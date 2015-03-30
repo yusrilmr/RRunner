@@ -23,6 +23,7 @@ public class SignUp extends JFrame{
 	JTextField TextFieldName;
 	JPasswordField PasswordFieldPassword;
 	JPasswordField PasswordFieldRepeatPassword;
+	String test;
 	
 	public SignUp(){
 		
