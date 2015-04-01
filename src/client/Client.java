@@ -26,7 +26,7 @@ public class Client {
                         }
                     });
 
-            ChannelFuture f = b.connect("127.0.0.1", 11111).sync();
+            ChannelFuture f = b.connect("80.113.19.100", 11111).sync();
 
             Scanner scanner = new Scanner(System.in);
 
