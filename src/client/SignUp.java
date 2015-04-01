@@ -155,7 +155,7 @@ public class SignUp extends JFrame{
                     handler.send(message);
                 }
             }*/
-            handler.send();
+      //      handler.send();
 
             f.channel().close();
         } finally {
