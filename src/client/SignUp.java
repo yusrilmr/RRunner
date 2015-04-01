@@ -1,9 +1,20 @@
 package client;
 
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,13 +99,23 @@ public class SignUp extends JFrame{
 		SignUp signup = new SignUp();
 	}
 	
+	
+	
 	class registerSignUp implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==ButtonSignUp){
 				if(Arrays.equals(PasswordFieldPassword.getPassword(),PasswordFieldRepeatPassword.getPassword())){
 					String Username = LabelUsername.getText();
-					String Name = "";
+					String Name = LabelName.getText();
+					String Password = PasswordFieldPassword.getPassword().toString();
+					
+					try {
+						insertUser(Username, Name, Password);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}else{
 					JOptionPane msg = new JOptionPane();
 					msg.showMessageDialog(null, "Please Correct the Repeat Password", "Error",JOptionPane.ERROR_MESSAGE);
@@ -102,4 +123,43 @@ public class SignUp extends JFrame{
 				}
 			}
 		}
+	
+	public void insertUser(String Username, String Name, String Password) throws InterruptedException {
+		EventLoopGroup group = new NioEventLoopGroup();
+        try {
+            final ClientHandler handler = new ClientHandler();
+
+            Bootstrap b = new Bootstrap();
+            b.group(group)
+                    .channel(NioSocketChannel.class)
+                    .option(ChannelOption.TCP_NODELAY, true)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            p.addLast(handler);
+                        }
+                    });
+
+            ChannelFuture f = b.connect("127.0.0.1", 11111).sync();
+            
+            Scanner scanner = new Scanner(System.in);
+
+            /*while (true) {
+            	
+                String message = scanner.nextLine();
+
+                if (message.equals("Exit")) {
+                    break;
+                } else {
+                    handler.send(message);
+                }
+            }*/
+            handler.send();
+
+            f.channel().close();
+        } finally {
+            group.shutdownGracefully();
+        }
+	}
 	}
