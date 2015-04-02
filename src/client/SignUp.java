@@ -89,8 +89,8 @@ public class SignUp extends JFrame{
 		getContentPane().add(PasswordFieldPassword);
 		getContentPane().add(LabelRepeatPassword);
 		getContentPane().add(PasswordFieldRepeatPassword);
-		getContentPane().add(LabelName);
-		getContentPane().add(TextFieldName);
+		//getContentPane().add(LabelName);
+		//getContentPane().add(TextFieldName);
 		getContentPane().add(ButtonSignUp);
 		
 		setLocationRelativeTo(null);
@@ -148,7 +148,7 @@ public class SignUp extends JFrame{
            // Scanner scanner = new Scanner(System.in);
             
             User us = new User();
-            String message = Username+" "+Password;
+            String message = "register"+" "+Username+" "+Password;
             handler.send(message);
             
             f.channel().close();
