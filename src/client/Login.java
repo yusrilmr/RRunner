@@ -19,8 +19,10 @@ public class Login extends JFrame {
 	JLabel LabelGreeting;
 	JLabel LabelUsername;
 	JLabel LabelPassword;
+	JLabel LabelIPAddress;
 	JTextField TextFieldUsername;
 	JTextField TextFieldPassword;
+	JTextField TextFieldIPAddress;
 	JButton ButtonForgotPassword;
 	JButton ButtonSignIn;
 	JButton ButtonExit;
@@ -55,20 +57,27 @@ public class Login extends JFrame {
 		LabelPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		LabelPassword.setBounds(80, 130, 300, 20);
 		
+		LabelIPAddress=new JLabel("IP Address:");
+		LabelIPAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		LabelIPAddress.setBounds(80, 160, 300, 20);
+		
 		TextFieldUsername=new JTextField("Username");
 		TextFieldUsername.setBounds(160, 100, 250, 20);
 		
 		TextFieldPassword=new JTextField("Password");
 		TextFieldPassword.setBounds(160, 130, 250, 20);
 		
+		TextFieldIPAddress=new JTextField("IP Address");
+		TextFieldIPAddress.setBounds(160, 160, 250, 20);
+		
 		ButtonForgotPassword=new JButton("Forgot Password?");
 		ButtonForgotPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		ButtonForgotPassword.setBounds(165, 160, 175, 35);
+		ButtonForgotPassword.setBounds(165, 190, 175, 35);
 		ButtonForgotPassword.addActionListener(a);	
 		
 		ButtonSignIn=new JButton("Sign In");
 		ButtonSignIn.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		ButtonSignIn.setBounds(200, 225, 100, 35);
+		ButtonSignIn.setBounds(200, 245, 100, 35);
 		ButtonSignIn.addActionListener(b);	
 		
 		ButtonSignUp=new JButton("Sign Up");
@@ -85,8 +94,10 @@ public class Login extends JFrame {
 		getContentPane().add(LabelGreeting);
 		getContentPane().add(LabelUsername);
 		getContentPane().add(LabelPassword);
+		getContentPane().add(LabelIPAddress);
 		getContentPane().add(TextFieldUsername);
 		getContentPane().add(TextFieldPassword);
+		getContentPane().add(TextFieldIPAddress);
 		getContentPane().add(ButtonForgotPassword);
 		getContentPane().add(ButtonSignIn);
 		getContentPane().add(ButtonSignUp);
@@ -124,40 +135,20 @@ public class Login extends JFrame {
 	class signin implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==ButtonSignIn){
-				try {
-					JOptionPane masuk = new JOptionPane();
-					int ukuranArr = Integer.valueOf(masuk.showInputDialog("Masukan Ukuran Array"));
-					int arr[] = new int[ukuranArr];
-					
-					JOptionPane.showMessageDialog(null, "Array has been created");
-					
-				} catch (NegativeArraySizeException err) {
-					JOptionPane.showMessageDialog(null, "Ukuran Array Harus Positif");
-				}
-			}
-		}
+//			if ((TextFieldUsername.equals(Username)) && (TextFieldPassword.equals(Password))) {
+//				Lobby lb = new Lobby();
+//				lb.setVisible(true);
+//				} else {
+//					JOptionPane.showMessageDialog(null, "ERROR", "Your Username & Password did not match", JOptionPane.ERROR_MESSAGE);
+//				}
+	}
 	}
 	
 	class signup implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==BtnArrayOut){
-				try {
-					JOptionPane masuk = new JOptionPane();
-					int jumlahIndex = Integer.valueOf(masuk.showInputDialog("Masukan Ukuran Array"));
-					int arr[] = new int[jumlahIndex];
-					
-					int angka = Integer.valueOf(masuk.showInputDialog("Masukan Angka"));
-					
-					int indexUpdate = Integer.valueOf(masuk.showInputDialog("Masukan Index Tujuan (Dimulai dari 0) "));
-					
-					arr[indexUpdate] = angka;
-					JOptionPane.showMessageDialog(null, "Array has been Updated");
-				} catch (ArrayIndexOutOfBoundsException e2) {
-					JOptionPane.showMessageDialog(null, "Failed! Wrong Indexing");
-				}
-			}
+			SignUp su = new SignUp();
+			su.setVisible(true);
 		}
 	}
 	
