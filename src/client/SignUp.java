@@ -23,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import model.User;
+
 public class SignUp extends JFrame{
 	JLabel LabelTitle;
 	JLabel LabelUsername;
@@ -107,11 +109,11 @@ public class SignUp extends JFrame{
 			if(e.getSource()==ButtonSignUp){
 				if(Arrays.equals(PasswordFieldPassword.getPassword(),PasswordFieldRepeatPassword.getPassword())){
 					String Username = LabelUsername.getText();
-					String Name = LabelName.getText();
+					//String Name = LabelName.getText();
 					String Password = PasswordFieldPassword.getPassword().toString();
 					
 					try {
-						insertUser(Username, Name, Password);
+						insertUser(Username, Password);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -124,7 +126,7 @@ public class SignUp extends JFrame{
 			}
 		}
 	
-	public void insertUser(String Username, String Name, String Password) throws InterruptedException {
+	public void insertUser(String Username, String Password) throws InterruptedException {
 		EventLoopGroup group = new NioEventLoopGroup();
         try {
             final ClientHandler handler = new ClientHandler();
@@ -141,22 +143,14 @@ public class SignUp extends JFrame{
                         }
                     });
 
-            ChannelFuture f = b.connect("127.0.0.1", 11111).sync();
+            ChannelFuture f = b.connect("145.93.49.62", 11111).sync();
             
-            Scanner scanner = new Scanner(System.in);
-
-            /*while (true) {
-            	
-                String message = scanner.nextLine();
-
-                if (message.equals("Exit")) {
-                    break;
-                } else {
-                    handler.send(message);
-                }
-            }*/
-      //      handler.send();
-
+           // Scanner scanner = new Scanner(System.in);
+            
+            User us = new User();
+            String message = Username+" "+Password;
+            handler.send(message);
+            
             f.channel().close();
         } finally {
             group.shutdownGracefully();
