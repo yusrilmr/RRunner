@@ -61,13 +61,13 @@ public class Login extends JFrame {
 		LabelIPAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		LabelIPAddress.setBounds(80, 160, 300, 20);
 		
-		TextFieldUsername=new JTextField("Username");
+		TextFieldUsername=new JTextField();
 		TextFieldUsername.setBounds(160, 100, 250, 20);
 		
-		TextFieldPassword=new JTextField("Password");
+		TextFieldPassword=new JTextField();
 		TextFieldPassword.setBounds(160, 130, 250, 20);
 		
-		TextFieldIPAddress=new JTextField("IP Address");
+		TextFieldIPAddress=new JTextField();
 		TextFieldIPAddress.setBounds(160, 160, 250, 20);
 		
 		ButtonForgotPassword=new JButton("Forgot Password?");
@@ -135,12 +135,12 @@ public class Login extends JFrame {
 	class signin implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			if ((TextFieldUsername.equals(Username)) && (TextFieldPassword.equals(Password))) {
-//				Lobby lb = new Lobby();
-//				lb.setVisible(true);
-//				} else {
-//					JOptionPane.showMessageDialog(null, "ERROR", "Your Username & Password did not match", JOptionPane.ERROR_MESSAGE);
-//				}
+			if ((TextFieldUsername.equals(ArrayListUsername)) && (TextFieldPassword.equals(ArrayListPassword))) {
+				Lobby lb = new Lobby();
+				lb.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "ERROR", "Your Username & Password did not match", JOptionPane.ERROR_MESSAGE);
+				}
 	}
 	}
 	
