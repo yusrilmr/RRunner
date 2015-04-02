@@ -25,8 +25,8 @@ public class Client {
                             p.addLast(handler);
                         }
                     });
-
-            ChannelFuture f = b.connect("80.113.19.100", 11111).sync();
+            //use ip local (for now)
+            ChannelFuture f = b.connect("145.93.49.62", 11111).sync();
 
             Scanner scanner = new Scanner(System.in);
 
