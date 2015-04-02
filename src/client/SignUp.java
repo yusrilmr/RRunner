@@ -108,7 +108,7 @@ public class SignUp extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==ButtonSignUp){
 				if(Arrays.equals(PasswordFieldPassword.getPassword(),PasswordFieldRepeatPassword.getPassword())){
-					String Username = LabelUsername.getText();
+					String Username = TextFieldUsername.getText();
 					//String Name = LabelName.getText();
 					String Password = PasswordFieldPassword.getPassword().toString();
 					
