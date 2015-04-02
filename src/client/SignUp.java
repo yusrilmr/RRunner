@@ -151,7 +151,8 @@ public class SignUp extends JFrame{
             String message = "register"+" "+Username+" "+Password;
             handler.send(message);
             
-            JOptionPane.showInternalMessageDialog(null, "User Data has been saved", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane msg = new JOptionPane();
+            msg.showInternalMessageDialog(null, "User Data has been saved", "", JOptionPane.INFORMATION_MESSAGE);
             
             Login LG = new Login();
             LG.setVisible(true);
