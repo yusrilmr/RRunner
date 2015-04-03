@@ -41,9 +41,13 @@ public class SignUpView extends JFrame{
 	SignUpFunction SUF = new SignUpFunction();
 	
 	public SignUpView(){
-		
+		buildGUI();
 		registerSignUp RSU = new registerSignUp();
 		
+		
+	}
+	
+	public void buildGUI(){
 		getContentPane().setLayout(null);
 		setSize(500, 500);
 		setTitle("RaceRunner - Sign Up");
@@ -82,7 +86,7 @@ public class SignUpView extends JFrame{
 		
 		ButtonSignUp=new JButton("Sign Up");
 		ButtonSignUp.setBounds(125,350,250,50);
-		ButtonSignUp.addActionListener(RSU);
+		//ButtonSignUp.addActionListener(RSU);
 		
 		/*Add the Element*/
 		getContentPane().add(LabelTitle);

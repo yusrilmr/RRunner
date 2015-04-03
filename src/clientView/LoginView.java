@@ -35,6 +35,12 @@ public class LoginView extends JFrame {
 	
 	public LoginView(){
 		
+		
+		
+		
+	}
+	
+	public void buildGUI(){
 		forget a = new forget();
 		signin b = new signin();
 		signup c = new signup();
@@ -108,7 +114,6 @@ public class LoginView extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	
 	
 	public static void main(String[] args) {
 		LoginView x =new LoginView();
