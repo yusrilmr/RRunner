@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import clientFunction.SignUpFunction;
 import clientModel.User;
 
 public class SignUpView extends JFrame{
@@ -36,6 +37,8 @@ public class SignUpView extends JFrame{
 	JTextField TextFieldName;
 	JPasswordField PasswordFieldPassword;
 	JPasswordField PasswordFieldRepeatPassword;
+	
+	SignUpFunction SUF = new SignUpFunction();
 	
 	public SignUpView(){
 		
@@ -112,12 +115,12 @@ public class SignUpView extends JFrame{
 					//String Name = LabelName.getText();
 					String Password = PasswordFieldPassword.getPassword().toString();
 					
-					try {
-						insertUser(Username, Password);
-					} catch (InterruptedException e1) {
+					//try {
+						//SUF.insertUser(Username, Password);
+					//} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					//	e1.printStackTrace();
+					//}
 				}else{
 					JOptionPane msg = new JOptionPane();
 					msg.showMessageDialog(null, "Please Correct the Repeat Password", "Error",JOptionPane.ERROR_MESSAGE);
@@ -126,41 +129,5 @@ public class SignUpView extends JFrame{
 			}
 		}
 	
-	public void insertUser(String Username, String Password) throws InterruptedException {
-		EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            final ClientHandler handler = new ClientHandler();
-
-            Bootstrap b = new Bootstrap();
-            b.group(group)
-                    .channel(NioSocketChannel.class)
-                    .option(ChannelOption.TCP_NODELAY, true)
-                    .handler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        public void initChannel(SocketChannel ch) throws Exception {
-                            ChannelPipeline p = ch.pipeline();
-                            p.addLast(handler);
-                        }
-                    });
-
-            ChannelFuture f = b.connect("145.93.49.62", 11111).sync();
-            
-           // Scanner scanner = new Scanner(System.in);
-            
-            User us = new User();
-            String message = "register"+" "+Username+" "+Password;
-            handler.send(message);
-            
-           // JOptionPane msg = new JOptionPane();
-           // msg.showInternalMessageDialog(null, "User Data has been saved", "", JOptionPane.INFORMATION_MESSAGE);
-            
-            LoginView LG = new LoginView();
-            LG.setVisible(true);
-            setVisible(false);
-            
-            //f.channel().close();
-        } finally {
-            group.shutdownGracefully();
-        }
-	}
+	
 	}

@@ -135,12 +135,7 @@ public class LoginView extends JFrame {
 	class signin implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if ((TextFieldUsername.equals(ArrayListUsername)) && (TextFieldPassword.equals(ArrayListPassword))) {
-				LobbyView lb = new LobbyView();
-				lb.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "ERROR", "Your Username & Password did not match", JOptionPane.ERROR_MESSAGE);
-				}
+			
 	}
 	}
 	
