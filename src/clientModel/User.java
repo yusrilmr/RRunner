@@ -1,4 +1,4 @@
-package model;
+package clientModel;
 
 public class User {
 	String Username;

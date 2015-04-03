@@ -1,4 +1,4 @@
-package client;
+package clientView;
 
 import java.awt.BorderLayout;
 
@@ -7,13 +7,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Lobby extends JFrame {
+public class LobbyView extends JFrame {
 	DefaultTableModel model = new DefaultTableModel(new Object[][] {
 			{ "some", "text" }, { "any", "text" }, { "even", "more" },
 		      { "text", "strings" }, { "and", "other" }, { "text", "values" } },
 	new Object[]{"Column 1", "Column 2"});
 	
-	public Lobby(){
+	public LobbyView(){
 		setSize(500, 500);
 		JTable table = new JTable(model);
 		getContentPane().setLayout(null);
@@ -25,6 +25,6 @@ public class Lobby extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		Lobby lobby = new Lobby();
+		LobbyView lobby = new LobbyView();
 	}
 }

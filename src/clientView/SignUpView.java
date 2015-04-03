@@ -1,4 +1,4 @@
-package client;
+package clientView;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.User;
+import clientModel.User;
 
-public class SignUp extends JFrame{
+public class SignUpView extends JFrame{
 	JLabel LabelTitle;
 	JLabel LabelUsername;
 	JLabel LabelPassword;
@@ -37,7 +37,7 @@ public class SignUp extends JFrame{
 	JPasswordField PasswordFieldPassword;
 	JPasswordField PasswordFieldRepeatPassword;
 	
-	public SignUp(){
+	public SignUpView(){
 		
 		registerSignUp RSU = new registerSignUp();
 		
@@ -98,7 +98,7 @@ public class SignUp extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		SignUp signup = new SignUp();
+		SignUpView signup = new SignUpView();
 	}
 	
 	
@@ -154,7 +154,7 @@ public class SignUp extends JFrame{
            // JOptionPane msg = new JOptionPane();
            // msg.showInternalMessageDialog(null, "User Data has been saved", "", JOptionPane.INFORMATION_MESSAGE);
             
-            Login LG = new Login();
+            LoginView LG = new LoginView();
             LG.setVisible(true);
             setVisible(false);
             

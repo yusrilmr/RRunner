@@ -1,4 +1,4 @@
-package client;
+package clientView;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Login extends JFrame {
+public class LoginView extends JFrame {
 	
 	JLabel LabelGreeting;
 	JLabel LabelUsername;
@@ -33,7 +33,7 @@ public class Login extends JFrame {
 	JButton BtnNeg;
 	JButton BtnNull;
 	
-	public Login(){
+	public LoginView(){
 		
 		forget a = new forget();
 		signin b = new signin();
@@ -111,7 +111,7 @@ public class Login extends JFrame {
 	
 	
 	public static void main(String[] args) {
-		Login x =new Login();
+		LoginView x =new LoginView();
 	}
 	
 	/*Action Listener*/
@@ -136,7 +136,7 @@ public class Login extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if ((TextFieldUsername.equals(ArrayListUsername)) && (TextFieldPassword.equals(ArrayListPassword))) {
-				Lobby lb = new Lobby();
+				LobbyView lb = new LobbyView();
 				lb.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "ERROR", "Your Username & Password did not match", JOptionPane.ERROR_MESSAGE);
@@ -147,7 +147,7 @@ public class Login extends JFrame {
 	class signup implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			SignUp su = new SignUp();
+			SignUpView su = new SignUpView();
 			su.setVisible(true);
 		}
 	}
