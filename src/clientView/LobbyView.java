@@ -3,6 +3,7 @@ package clientView;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,11 +22,17 @@ import javax.swing.table.TableCellRenderer;
 
 public class LobbyView extends JFrame {
 	private DefaultTableModel model;
-
+	
+	
+	
+	
+	
 	private JTable table;
 
 	public LobbyView() {
 		super();
+		setTitle("Race Runner - Lobby");
+		
 		model = new DefaultTableModel();
 		model.addColumn("Title");
 		model.addColumn("Capacity");
@@ -63,7 +71,7 @@ public class LobbyView extends JFrame {
 		addButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-				//action
+				//action for refresh
 			}
 		});
 
@@ -72,7 +80,7 @@ public class LobbyView extends JFrame {
 		removeButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-				//action
+				//action for logout
 			}
 		});
 		
@@ -88,6 +96,7 @@ public class LobbyView extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(400, 300);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
@@ -156,7 +165,7 @@ class ButtonEditor extends DefaultCellEditor {
 	  public Object getCellEditorValue() {
 	    if (isPushed) {
 	      // 
-	      // 
+	      // action for join game
 	      JOptionPane.showMessageDialog(button, label + ": Ouch!");
 	      // System.out.println(label + ": Ouch!");
 	    }
