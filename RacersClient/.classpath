@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/aopalliance-repackaged-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/asm-debug-all-5.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/hk2-api-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/hk2-locator-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/hk2-utils-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/javassist-3.18.1-GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/javax.inject-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/javax.ws.rs-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jaxb-api-2.2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-common.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-container-servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-container-servlet-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-guava-2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-media-jaxb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/jersey-server.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/org.osgi.core-4.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/persistence-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Teun/Desktop/RacersClient/lib/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
