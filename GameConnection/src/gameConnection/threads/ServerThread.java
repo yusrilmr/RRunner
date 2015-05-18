@@ -1,34 +1,43 @@
-package gameConnection;
-
-import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
+package gameConnection.threads;
 
 import gameConnection.Client;
 
-class ServerSide {
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
+
+public class ServerThread implements Runnable{
+	
 	ArrayList<InetAddress> IPAddressList;
 	ArrayList<Integer> portList;
-	public boolean isRunning = true;
+	DatagramSocket serverSocket;
+	byte[] receiveData;
+	byte[] sendData;
+	Client ModelClient;
 
-	public ServerSide() throws Exception {
-		start();
-	}
-
-	public void start() throws IOException{
-		DatagramSocket serverSocket = new DatagramSocket(9876);
+	public ServerThread() throws IOException{
+		serverSocket = new DatagramSocket(9876);
 		IPAddressList = new ArrayList<InetAddress>();
 		portList = new ArrayList<Integer>();
-		Client ModelClient = new Client();
+		ModelClient = new Client();
 
 		serverSocket.setBroadcast(true);
-		byte[] receiveData = new byte[1024];
-		byte[] sendData = new byte[1024];
-
-		while (isRunning) {
+		receiveData = new byte[1024];
+		sendData = new byte[1024];
+	}
+	
+	@Override
+	public void run(){
+		while (!Thread.currentThread().isInterrupted()) {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
 
-			serverSocket.receive(receivePacket);
+			try {
+				serverSocket.receive(receivePacket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			ModelClient.setIPAddress(receivePacket.getAddress());
 			ModelClient.setPort(receivePacket.getPort());
@@ -53,27 +62,40 @@ class ServerSide {
 			for (int i = 0; i < IPAddressList.size(); i++) {
 				System.out.println("Client list " + (i+1) +" : "+IPAddressList.get(i)+ " " + portList.get(i));
 				DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length, IPAddressList.get(i), portList.get(i));
-				serverSocket.send(sendPacket);
+				try {
+					serverSocket.send(sendPacket);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			System.out.println();
 
 		}
-		if(IPAddressList.size() > 1){
+		if(IPAddressList.size() > 1){			
 			String sentence = "host";
 			sendData = sentence.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length, IPAddressList.get(1), portList.get(1));
-			serverSocket.send(sendPacket);
+			try {
+				serverSocket.send(sendPacket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			if(IPAddressList.size() > 2){
 				for (int i = 2; i < IPAddressList.size(); i++) {
 					sentence = "change-"+IPAddressList.get(1).toString();
 					sendData = sentence.getBytes();
 					sendPacket = new DatagramPacket(sendData,sendData.length, IPAddressList.get(i), portList.get(i));
-					serverSocket.send(sendPacket);
+					try {
+						serverSocket.send(sendPacket);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
+				System.out.println("There is at least one other");
 			}
+			System.out.println("There is only one other");
 		}
-
-
-
+		System.out.println("There is only me");		
 	}
+
 }

@@ -1,5 +1,7 @@
 package gameConnection;
 
+import gameConnection.threads.ServerThread;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -11,10 +13,11 @@ public class Main {
 	ArrayList<Integer> portList;
 	boolean host;
 	ClientSide client;
-	ServerSide server;
+	Thread server;
+	static Main m;
 
 	public static void main(String[] args) throws Exception {
-		Main m = new Main(true);
+		m = new Main(true);
 	}
 
 	public Main(boolean host) throws Exception{
@@ -23,13 +26,15 @@ public class Main {
 		client = new ClientSide(44445, this, "localhost");
 		this.host = host;
 		if(host){
-			server = new ServerSide();
+			server = new Thread(new ServerThread());
+			server.start();
 		}
 	}
 
 	public void becomeServer() throws Exception{
 		client.changeServerIP("localhost");
-		server = new ServerSide();
+		server  = new Thread(new ServerThread());
+		server.start();
 	}
 	
 	public void switchServer(String ip) throws IOException{
@@ -37,6 +42,6 @@ public class Main {
 	}
 	
 	public void close(){
-		server.isRunning = false;
+		server.interrupt();
 	}
 }

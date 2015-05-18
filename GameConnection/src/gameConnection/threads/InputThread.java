@@ -30,10 +30,10 @@ public class InputThread extends WindowAdapter implements Runnable{
 	Main m;
 
 
-	public InputThread(DatagramSocket d, String ip, Main m) throws IOException {
+	public InputThread(DatagramSocket d, String ip, Main ma) throws IOException {
 		clientSocket = d;
 		IPAddress = InetAddress.getByName(ip);
-		this.m = m;
+		this.m = ma;
 
 		frame = new JFrame("Key Listener client");
 
@@ -71,13 +71,16 @@ public class InputThread extends WindowAdapter implements Runnable{
 		frame.pack();
 		frame.setVisible(true);
 		frame.addWindowListener(this);
+		sendEmpty();
+		
+		
 	}
 
 	public void run(){
-		init();
+		sendEmpty();
 	}
 
-	private void init(){
+	private void sendEmpty(){
 		//send empty packet to give ip and port
 		sendData = sentence.getBytes();
 		DatagramPacket sendEmptyPacket = new DatagramPacket(sendData,sendData.length, IPAddress, 9876);
@@ -91,6 +94,8 @@ public class InputThread extends WindowAdapter implements Runnable{
 	@Override
 	public void windowClosing(WindowEvent e) {
 		m.close();
+		sendEmpty();
+		System.exit(0);
 	}
 	
 }
