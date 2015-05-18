@@ -43,15 +43,7 @@ public class InputThread extends WindowAdapter implements Runnable{
 
 			@Override
 			public void keyPressed(KeyEvent event) {
-				try {
-					sentence = String.valueOf(event.getKeyCode());
-					sendData = sentence.getBytes();
-					DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length, IPAddress, 9876);
-
-					clientSocket.send(sendPacket);
-				} catch (Exception e) {
-
-				}
+				sendPacket(String.valueOf(event.getKeyCode()));
 			}
 
 			@Override
@@ -71,17 +63,16 @@ public class InputThread extends WindowAdapter implements Runnable{
 		frame.pack();
 		frame.setVisible(true);
 		frame.addWindowListener(this);
-		sendEmpty();
-		
-		
+		sendPacket("");		
 	}
 
 	public void run(){
-		sendEmpty();
+		sendPacket("");
 	}
 
-	private void sendEmpty(){
-		//send empty packet to give ip and port
+	
+	private void sendPacket(String s){
+		sentence = s;
 		sendData = sentence.getBytes();
 		DatagramPacket sendEmptyPacket = new DatagramPacket(sendData,sendData.length, IPAddress, 9876);
 		try{
@@ -93,8 +84,12 @@ public class InputThread extends WindowAdapter implements Runnable{
 	
 	@Override
 	public void windowClosing(WindowEvent e) {
-		m.close();
-		sendEmpty();
+		if(m.getHost()){
+			m.close();
+			sendPacket("");
+		}else{
+			sendPacket("disconnect");
+		}
 		System.exit(0);
 	}
 	

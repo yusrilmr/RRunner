@@ -50,7 +50,14 @@ public class ServerThread implements Runnable{
 			}
 
 			String sentence = new String(receivePacket.getData(), 0, receivePacket.getLength());
-
+			if(sentence.equals("disconnected")){
+				for(int i = 0; i < IPAddressList.size(); i++){
+					if(IPAddressList.get(i) == receivePacket.getAddress()){
+						IPAddressList.remove(i);
+						portList.remove(i);
+					}
+				}
+			}
 			System.out.println("data received: " + sentence);
 
 			System.out.println("Port: " + ModelClient.getPort());

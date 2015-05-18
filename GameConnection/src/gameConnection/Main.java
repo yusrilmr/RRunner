@@ -42,6 +42,10 @@ public class Main {
 	}
 	
 	public void close(){
-		server.interrupt();
+			server.interrupt();
+	}
+	
+	public boolean getHost(){
+		return host;
 	}
 }
