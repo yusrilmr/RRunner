@@ -19,78 +19,107 @@ import java.net.UnknownHostException;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+//the thread that will handle the input of the user and send it to the host
 public class InputThread extends WindowAdapter implements Runnable{
-	BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+	//the string that will contain the message to send
 	String sentence = "";
+	//byte arrays for sending and receiving data
 	byte[] sendData = new byte[1024];
 	byte[] receiveData = new byte[1024];
+	//info needed for sending
 	DatagramSocket clientSocket;
 	InetAddress IPAddress;
 	JFrame frame;
 	Main m;
+	int port = 9876;
 
-
+	//constructor
 	public InputThread(DatagramSocket d, String ip, Main ma) throws IOException {
+		//initialization
 		clientSocket = d;
 		IPAddress = InetAddress.getByName(ip);
 		this.m = ma;
-
+		
+		//create a JFrame that can hold an object to put a key listener on
 		frame = new JFrame("Key Listener client");
-
 		Container contentPane = frame.getContentPane();
-
 		KeyListener listener = new KeyListener() {
-
+			
+			//whenever a key is pressed, send a packet with that keycode
 			@Override
 			public void keyPressed(KeyEvent event) {
 				sendPacket(String.valueOf(event.getKeyCode()));
 			}
-
+			
+			//override needed for the listener
 			@Override
 			public void keyReleased(KeyEvent event) {
 
 			}
 
+			//override needed for the listener
 			@Override
 			public void keyTyped(KeyEvent e) {
 
 			}
 		};
 
+		//the textfield with the listener
 		JTextField textField = new JTextField();
 		textField.addKeyListener(listener);
 		contentPane.add(textField, BorderLayout.NORTH);
 		frame.pack();
 		frame.setVisible(true);
 		frame.addWindowListener(this);
+		
+		//when done initializing the frame, send an empty packet to let the server know that you're there
 		sendPacket("");		
 	}
 
+	//the method that is called when the thread is started
 	public void run(){
-		sendPacket("");
+		while(true){
+			//as long as it is not interrupted, keep waiting
+			//if it is interrupted, it means it needs to get new ip and port numbers
+			//after Thread.interrupted() the interrupted flag is reset so that it
+			//can be called again
+			if(Thread.interrupted()){
+				clientSocket = m.getSocket();
+				try {
+					IPAddress = InetAddress.getByName(m.getIP());
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
 	}
 
-	
+
+	//sends a packet with string s as contents to the server
 	private void sendPacket(String s){
 		sentence = s;
 		sendData = sentence.getBytes();
-		DatagramPacket sendEmptyPacket = new DatagramPacket(sendData,sendData.length, IPAddress, 9876);
+		DatagramPacket sendEmptyPacket = new DatagramPacket(sendData,sendData.length, IPAddress, port);
 		try{
 			clientSocket.send(sendEmptyPacket);
 		}catch(Exception e){
 
 		}
 	}
-	
+
+	//window event listener to execute code when someone closes their client
 	@Override
 	public void windowClosing(WindowEvent e) {
+		//if this client was also the host, then call the main 
+		//to handle host switching
 		if(m.getHost()){
 			m.close();
 			sendPacket("");
+		//if this client was not the host, then just send disconnect to remove the client
 		}else{
 			sendPacket("disconnect");
 		}
 		System.exit(0);
 	}
-	
+
 }

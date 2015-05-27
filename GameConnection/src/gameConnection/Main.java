@@ -3,49 +3,71 @@ package gameConnection;
 import gameConnection.threads.ServerThread;
 
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-
+//the main class that overlooks the client and server side of the application
 public class Main {
-
-	ArrayList<InetAddress> IPAddressList;
-	ArrayList<Integer> portList;
+	//check to see whether this instance is a host or not
 	boolean host;
+	//the client side
 	ClientSide client;
+	//the server thread
 	Thread server;
 	static Main m;
+	//port number
+	int port = 44444;
 
+	//standard main that creates an instance
 	public static void main(String[] args) throws Exception {
 		m = new Main(true);
 	}
 
+	//constructor. The host boolean determines whether this instance is going to be a host or not
 	public Main(boolean host) throws Exception{
-		IPAddressList = new ArrayList<InetAddress>();
-		portList = new ArrayList<Integer>();
-		client = new ClientSide(44445, this, "localhost");
+		client = new ClientSide(port, this, "localhost");
 		this.host = host;
+		//if this is a host, then start the server thread
 		if(host){
 			server = new Thread(new ServerThread());
 			server.start();
 		}
 	}
 
+	//changes this instance to host,
+	//starts server thread,
+	//changes the ip and port to which the client has to connect to itself
 	public void becomeServer() throws Exception{
-		client.changeServerIP("localhost");
-		server  = new Thread(new ServerThread());
+		host = true;
+		server = new Thread(new ServerThread());
 		server.start();
+		client.changeServerIP("localhost", port);
 	}
 	
-	public void switchServer(String ip) throws IOException{
-		client.changeServerIP(ip);
+	//changes the ip and port of the client to a new host
+	public void switchServer(String ip, int p) throws IOException{
+		System.out.println(ip + " " + p);
+		client.changeServerIP(ip, p);
 	}
 	
+	//interrupts the server so that the host can be switched
 	public void close(){
-			server.interrupt();
+		server.interrupt();
 	}
 	
+	//returns whether its a host or not
 	public boolean getHost(){
 		return host;
+	}
+	
+	//returns the ip to connect to
+	public String getIP(){
+		return client.getIP();
+	}
+	
+	//returns the socket with the portnumber to connect to
+	public DatagramSocket getSocket(){
+		return client.getSocket();
 	}
 }
