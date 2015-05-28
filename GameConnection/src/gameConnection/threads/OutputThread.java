@@ -1,5 +1,6 @@
 package gameConnection.threads;
 
+import game.Game;
 import gameConnection.Main;
 
 import java.io.BufferedReader;
@@ -21,11 +22,13 @@ public class OutputThread implements Runnable{
 	//info needed for sending
 	DatagramSocket clientSocket;
 	Main m;
+	Game game;
 
 	//constructor
-	public OutputThread(DatagramSocket d, Main m) throws IOException{
+	public OutputThread(DatagramSocket d, Main m, Game g) throws IOException{
 		clientSocket = d;
 		this.m = m;
+		this.game = g;
 	}
 
 	//the method that is called when the thread is started
@@ -55,6 +58,39 @@ public class OutputThread implements Runnable{
 						}else{
 							//print the data from the package
 							System.out.println("From player: " + parts[1] + " button: " + parts[0]);
+							if(parts[1].equals("1")){
+								switch(Integer.parseInt(parts[0])){
+								case 39: 
+									game.getPanel().getPlayer1().setRight(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer1().setRight(false);
+									break;
+								case 37:
+									game.getPanel().getPlayer1().setLeft(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer1().setLeft(false);
+									break;
+								case 38:
+									game.getPanel().getPlayer1().setJumping(true);
+									break;
+								}
+							}else{
+								switch(Integer.parseInt(parts[0])){
+								case 39: 
+									game.getPanel().getPlayer2().setRight(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer2().setRight(false);
+									break;
+								case 37:
+									game.getPanel().getPlayer2().setLeft(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer2().setLeft(false);
+									break;
+								case 38:
+									game.getPanel().getPlayer2().setJumping(true);
+									break;
+								}
+							}
 						}
 					}
 				}

@@ -1,4 +1,5 @@
 package gameConnection;
+import game.Game;
 import gameConnection.threads.InputThread;
 import gameConnection.threads.OutputThread;
 
@@ -14,20 +15,22 @@ public class ClientSide {
 	DatagramSocket clientSocket;
 	Main m;
 	String ip;
+	Game game;
 	
 	//The class that handles the threads of the client side of the application
 	//p = port number of the server to connect to
 	//ma is the main of this application
 	//ip is the ip address to connect to
-	public ClientSide(int p, Main ma, String ip) throws IOException {
+	public ClientSide(int p, Main ma, String ip, Game g) throws IOException {
 		//initialize variables needed for the clientside
 		this.m = ma;
 		clientSocket = new DatagramSocket(p);
 		this.ip = ip;
+		this.game = g;
 		
 		//create the threads needed for the input and output of the client
 		input = new Thread(new InputThread(clientSocket, this.ip, this.m));
-		output = new Thread(new OutputThread(clientSocket, this.m));
+		output = new Thread(new OutputThread(clientSocket, this.m, this.game));
 		
 		//start the threads
 		input.start();

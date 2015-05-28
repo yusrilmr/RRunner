@@ -1,5 +1,6 @@
 package gameConnection;
 
+import game.Game;
 import gameConnection.threads.ServerThread;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Main {
 	static Main m;
 	//port number
 	int port = 44444;
+	Game game;
 
 	//standard main that creates an instance
 	public static void main(String[] args) throws Exception {
@@ -26,7 +28,8 @@ public class Main {
 
 	//constructor. The host boolean determines whether this instance is going to be a host or not
 	public Main(boolean host) throws Exception{
-		client = new ClientSide(port, this, "localhost");
+		game = new Game();
+		client = new ClientSide(port, this, "localhost", game);
 		this.host = host;
 		//if this is a host, then start the server thread
 		if(host){
