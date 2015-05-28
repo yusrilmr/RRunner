@@ -8,6 +8,7 @@ public class Game{
 		JFrame window = new JFrame("Platformer");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setContentPane(new GamePanel());
+		//window.setContentPane(new Gametime());
 		window.pack();
 		window.setVisible(true);
 	}

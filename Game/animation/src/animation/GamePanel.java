@@ -2,11 +2,15 @@ package animation;
 
 import javax.swing.JPanel;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.*;
 import java.awt.Event.*;
+
+import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static final int WIDTH = 400;
@@ -18,6 +22,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
+	static int interval;
+	static Timer timer;
+	
+	int tmpInterval = 0;
 	private int FPS = 30;
 	private int targetTime = 1000 / FPS;
 	
@@ -25,19 +33,51 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private Player player;
 	private Player2 player2;
 	
+	
+	
 	public GamePanel(){
 		super();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setFocusable(true);
 		requestFocus();
+		
+		
+	}
+	
+	private static final int setInterval() {
+	    if (interval == 1){
+	        timer.cancel();
+	    }
+	    return --interval;
 	}
 	
 	public void addNotify(){
 		super.addNotify();
 		if(thread == null){
+			//start class TileMap
 			thread = new Thread(this);
 			thread.start();
-		}
+			// Game Duration
+				System.out.println("5 Minutes");
+				String secs = "300";
+			    int delay = 1000;
+			    int period = 1000;
+			    timer = new Timer();
+			    interval = Integer.parseInt(secs);
+			    System.out.println(secs);
+			    timer.schedule(new TimerTask() {
+
+			        public void run() {
+			        	tmpInterval = setInterval();
+			            System.out.println(tmpInterval);
+			            if(tmpInterval <= 0){
+			            	//if the countdown reaches 0, then
+	            			thread.stop();
+			            }
+			        }
+			    }, delay, period);
+			
+			}
 		addKeyListener(this);
 	}
 	
@@ -100,6 +140,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void draw(){
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0, null);
+		
 		g2.dispose();
 	}
 

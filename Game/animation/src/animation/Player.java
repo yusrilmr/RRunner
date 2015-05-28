@@ -181,13 +181,16 @@ public class Player {
 		//move the map
 		tileMap.setx((int) (GamePanel.WIDTH / 2 - x));
 		tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
+		if (x <= 86 && x >= 42 && y == 438){
+			System.out.println("PLAYER 1 WIN!!!!!!");
+		}
 	}
 	
 	public void draw(Graphics2D g){
 		int tx = tileMap.getx();
 		int ty = tileMap.gety();
 		
-		g.setColor(Color.RED);
+		g.setColor(Color.MAGENTA);
 		g.fillRect(
 			(int) (tx + x - width / 2),	
 			(int) (ty + y - height / 2),
