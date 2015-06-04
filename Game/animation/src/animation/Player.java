@@ -25,14 +25,19 @@ public class Player {
 	private double gravity;
 	
 	private TileMap tileMap;
+	private Color color;
+	private Boolean camera;
+	private String name;
 	
 	private boolean topLeft;
 	private boolean topRight;
 	private boolean bottomLeft;
 	private boolean bottomRight;
 	
-	public Player(TileMap tm){
-		
+	public Player(TileMap tm, Color color, Boolean camera, String name){
+		this.name = name;
+		this.camera = camera;
+		this.color=color;
 		tileMap =tm;
 		
 		width = 20;
@@ -179,10 +184,13 @@ public class Player {
 		y = tempy;
 		
 		//move the map
-		tileMap.setx((int) (GamePanel.WIDTH / 2 - x));
-		tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
+		if(camera){
+			tileMap.setx((int) (GamePanel.WIDTH / 2 - x));
+			tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
+		}
+		
 		if (x <= 86 && x >= 42 && y == 438){
-			System.out.println("PLAYER 1 WIN!!!!!!");
+			System.out.println(name + " WIN!!!!!!");
 		}
 	}
 	
@@ -190,7 +198,7 @@ public class Player {
 		int tx = tileMap.getx();
 		int ty = tileMap.gety();
 		
-		g.setColor(Color.MAGENTA);
+		g.setColor(color);
 		g.fillRect(
 			(int) (tx + x - width / 2),	
 			(int) (ty + y - height / 2),
