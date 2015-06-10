@@ -35,6 +35,9 @@ public class OutputThread implements Runnable{
 	public void run() {
 		//always keep listening on the socket to see if a message is received
 		while (true) {
+			if(Thread.interrupted()){
+				clientSocket = m.getSocket();
+			}
 			try {
 				DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
 				clientSocket.receive(receivePacket);
@@ -57,38 +60,13 @@ public class OutputThread implements Runnable{
 							m.switchServer(parts[1], Integer.parseInt(parts[2]));						
 						}else{
 							//print the data from the package
-							System.out.println("From player: " + parts[1] + " button: " + parts[0]);
-							if(parts[1].equals("1")){
-								switch(Integer.parseInt(parts[0])){
-								case 39: 
-									game.getPanel().getPlayer1().setRight(true);
-									game.getPanel().update();
-									game.getPanel().getPlayer1().setRight(false);
-									break;
-								case 37:
-									game.getPanel().getPlayer1().setLeft(true);
-									game.getPanel().update();
-									game.getPanel().getPlayer1().setLeft(false);
-									break;
-								case 38:
-									game.getPanel().getPlayer1().setJumping(true);
-									break;
-								}
+							if(parts[0].equals("1")){
+								game.getPanel().getPlayer1().setx(Double.valueOf(parts[1]).intValue());
+								game.getPanel().getPlayer1().sety(Double.valueOf(parts[2]).intValue());
 							}else{
-								switch(Integer.parseInt(parts[0])){
-								case 39: 
-									game.getPanel().getPlayer2().setRight(true);
-									game.getPanel().update();
-									game.getPanel().getPlayer2().setRight(false);
-									break;
-								case 37:
-									game.getPanel().getPlayer2().setLeft(true);
-									game.getPanel().update();
-									game.getPanel().getPlayer2().setLeft(false);
-									break;
-								case 38:
-									game.getPanel().getPlayer2().setJumping(true);
-									break;
+								if(parts[0].equals("2")){
+									game.getPanel().getPlayer2().setx(Double.valueOf(parts[1]).intValue());
+									game.getPanel().getPlayer2().sety(Double.valueOf(parts[2]).intValue());
 								}
 							}
 						}

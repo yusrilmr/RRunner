@@ -1,5 +1,6 @@
 package gameConnection.threads;
 
+import game.Game;
 import gameConnection.Client;
 
 import java.io.IOException;
@@ -18,16 +19,18 @@ public class ServerThread implements Runnable{
 	byte[] receiveData;
 	byte[] sendData;
 	Client ModelClient;
+	Game game;
 
 	//constructor
-	public ServerThread() throws IOException{
+	public ServerThread(Game g) throws IOException{
 		//initialize sockets and other data
 		System.out.println("Server Loading");
 		serverSocket = new DatagramSocket(9876);
 		IPAddressList = new ArrayList<InetAddress>();
 		portList = new ArrayList<Integer>();
 		ModelClient = new Client();
-
+		
+		game = g;
 		serverSocket.setBroadcast(true);
 		receiveData = new byte[1024];
 		sendData = new byte[1024];
@@ -70,10 +73,49 @@ public class ServerThread implements Runnable{
 						portList.remove(i);
 					}else{
 						sentence = sentence + "-" + (i+1);
+						String[] parts = sentence.split("-");
+						if(!parts[0].equals("")){
+							if(parts[1].equals("1")){
+								switch(Integer.parseInt(parts[0])){
+								case 39: 
+									game.getPanel().getPlayer1().setRight(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer1().setRight(false);
+									break;
+								case 37:
+									game.getPanel().getPlayer1().setLeft(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer1().setLeft(false);
+									break;
+								case 38:
+									game.getPanel().getPlayer1().setJumping(true);
+									break;
+								}
+								sentence = "1-" + game.getPanel().getPlayer1().getX() + "-" + game.getPanel().getPlayer1().getY();
+							}else{
+								switch(Integer.parseInt(parts[0])){
+								case 39: 
+									game.getPanel().getPlayer2().setRight(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer2().setRight(false);
+									break;
+								case 37:
+									game.getPanel().getPlayer2().setLeft(true);
+									game.getPanel().update();
+									game.getPanel().getPlayer2().setLeft(false);
+									break;
+								case 38:
+									game.getPanel().getPlayer2().setJumping(true);
+									break;
+								}
+								sentence = "2-" + game.getPanel().getPlayer2().getX() + "-" + game.getPanel().getPlayer2().getY();
+							}
+						}
+						
 					}
 				}
 			}
-
+			
 			//turn the string of the packet into a send able packet//
 			//send it to all the clients in the list//
 			//---------------------------------------------------------//
@@ -88,7 +130,7 @@ public class ServerThread implements Runnable{
 				}
 			}
 		}
-		
+
 		//this code is reached whenever the host closes his client
 		//if there are is just himself, then this IF will be skipped and nothing will happen
 		//it means the host is the last player, so the program may quit

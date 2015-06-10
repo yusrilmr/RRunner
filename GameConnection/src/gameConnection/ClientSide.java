@@ -39,9 +39,12 @@ public class ClientSide {
 	
 	//changes the ip (s) and the port number (p) to which the client has to send packages
 	public void changeServerIP(String s, int p) throws IOException{
+		clientSocket.disconnect();
+		clientSocket.close();
 		clientSocket = new DatagramSocket(p);
 		ip = s;
-		input.interrupt();		
+		input.interrupt();
+		output.interrupt();
 	}
 	
 	//returns the ip that the client has to send to

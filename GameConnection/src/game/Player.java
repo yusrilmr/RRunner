@@ -38,7 +38,7 @@ public class Player {
 		width = 20;
 		height = 20;
 		
-		moveSpeed = 0.6;
+		moveSpeed = 4;
 		maxSpeed = 4.2;
 		maxFallingSpeed = 12;
 		stopSpeed = 0.3;
@@ -48,6 +48,12 @@ public class Player {
 	
 	public void setx(int i){ x = i; }
 	public void sety(int i){ y = i; }
+	public double getX(){
+		return x;
+	}
+	public double getY(){
+		return y;
+	}
 	
 	public void setLeft(boolean b){ left = b; }
 	public void setRight(boolean b){ right = b; }

@@ -119,11 +119,12 @@ public class InputThread extends WindowAdapter implements Runnable{
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
+				
 			}
 			try {
-				Thread.sleep(50);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Thread.currentThread().interrupt();
 			}
 		}		
 	}

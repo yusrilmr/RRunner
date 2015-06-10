@@ -33,7 +33,7 @@ public class Main {
 		this.host = host;
 		//if this is a host, then start the server thread
 		if(host){
-			server = new Thread(new ServerThread());
+			server = new Thread(new ServerThread(game));
 			server.start();
 		}
 	}
@@ -43,7 +43,7 @@ public class Main {
 	//changes the ip and port to which the client has to connect to itself
 	public void becomeServer() throws Exception{
 		host = true;
-		server = new Thread(new ServerThread());
+		server = new Thread(new ServerThread(game));
 		server.start();
 		client.changeServerIP("localhost", port);
 	}
