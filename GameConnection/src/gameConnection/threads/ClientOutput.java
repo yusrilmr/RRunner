@@ -56,7 +56,7 @@ public class ClientOutput implements Runnable{
 						//and the client has to change to these new values
 						//which will also be sent in this package
 						if(parts[0].equals("change")){						
-							parts[1] = parts[1].substring(1, parts[1].length() - 1);
+							parts[1] = parts[1].substring(1, parts[1].length());
 							System.out.println("FROM SERVER:" + parts[0] + parts[1]);		
 							m.switchServer(parts[1], Integer.parseInt(parts[2]));						
 						}else{

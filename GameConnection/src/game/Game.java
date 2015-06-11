@@ -12,14 +12,14 @@ public class Game{
 	
 	public Game() {
 		ArrayList<Player> players = new ArrayList<Player>();
-		TileMap tileMap = new TileMap("src/game/testmap.txt", 32);
+		TileMap tileMap = new TileMap("src/game/testmap1.txt", 32);
 		Player p1 = new Player(tileMap, Color.MAGENTA, true, "Ghani");
 		Player p2 = new Player(tileMap, Color.BLUE, false, "Teun");
 		Player p3 = new Player(tileMap, Color.GREEN, false, "Yusuf");
 		Player p4 = new Player(tileMap, Color.YELLOW, false, "Yusril");
 		players.add(p1);
 		players.add(p2);
-		//players.add(p3);
+		players.add(p3);
 		//players.add(p4);
 		
 		panel = new GamePanel(players, tileMap);

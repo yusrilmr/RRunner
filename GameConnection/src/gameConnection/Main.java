@@ -22,7 +22,7 @@ public class Main {
 	//port number
 	int port = 44444;
 	Game game;
-	int playerNumber = -1;
+	int playerNumber = - 1;
 	
 	DatagramSocket serverSocket;
 	

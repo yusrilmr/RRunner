@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 
+import javax.swing.JOptionPane;
+
 public class Player {
 
 	private double x;
@@ -196,9 +198,23 @@ public class Player {
 			tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
 		}
 
-		/*if (x <= 86 && x >= 42 && y == 438){
-			System.out.println(name + " WIN!!!!!!");
-		}*/
+		if (x <= 86 && x >= 42 && y == 438){
+			Object[] options = {"OK"};
+			int n = JOptionPane.showOptionDialog(null,
+					name + " WINS! ",
+					"Congratulations!",
+					JOptionPane.OK_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,     //do not use a custom Icon
+					options,  //the titles of buttons
+					options[0]); //default button title
+
+			if(n == JOptionPane.OK_OPTION){
+				System.exit(1);
+			}else{
+				System.exit(1);
+			}
+		}
 	}
 
 	public void draw(Graphics2D g){
