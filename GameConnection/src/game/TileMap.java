@@ -72,6 +72,12 @@ public class TileMap {
 				if(rc == 1){
 					g.setColor(Color.WHITE);
 				}
+				if(rc == 2){
+					g.setColor(Color.GREEN);
+				}
+				if(rc == 3){
+					g.setColor(Color.RED);
+				}
 				
 				g.fillRect(x + col * tileSize, y + row * tileSize, tileSize, tileSize);
 			}

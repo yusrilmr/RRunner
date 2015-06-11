@@ -3,58 +3,64 @@ package game;
 import java.awt.*;
 
 public class Player {
-	
+
 	private double x;
 	private double y;
 	private double dx;
 	private double dy;
-	
+
 	private int width;
 	private int height;
-	
+
 	private boolean left;
 	private boolean right;
 	private boolean jumping;
 	private boolean falling;
-	
+
 	private double moveSpeed;
 	private double maxSpeed;
 	private double maxFallingSpeed;
 	private double stopSpeed;
 	private double jumpStart;
 	private double gravity;
-	
+
 	private TileMap tileMap;
-	
+	private Color color;
+	private Boolean camera;
+	private String name;
+
 	private boolean topLeft;
 	private boolean topRight;
 	private boolean bottomLeft;
 	private boolean bottomRight;
-	
-	public Player(TileMap tm){
-		
+
+	public Player(TileMap tm, Color color, Boolean camera, String name){
+		this.name = name;
+		this.camera = camera;
+		this.color=color;
 		tileMap =tm;
-		
+
 		width = 20;
 		height = 20;
-		
-		moveSpeed = 4;
+
+		moveSpeed = 3;
 		maxSpeed = 4.2;
 		maxFallingSpeed = 12;
-		stopSpeed = 0.3;
+		stopSpeed = 0.30;
 		jumpStart = -11.0;
 		gravity = 0.64;
 	}
-	
+
 	public void setx(int i){ x = i; }
 	public void sety(int i){ y = i; }
-	public double getX(){
-		return x;
+
+	public int getX(){ 
+		return (int)x;
 	}
-	public double getY(){
-		return y;
+	public int getY(){
+		return (int)y; 
 	}
-	
+
 	public void setLeft(boolean b){ left = b; }
 	public void setRight(boolean b){ right = b; }
 	public void setJumping(boolean b){
@@ -62,7 +68,7 @@ public class Player {
 			jumping = true;
 		}
 	}
-	
+
 	private void calculateCorners(double x, double y){
 		int leftTile = tileMap.getColTile((int) (x - width / 2));
 		int rightTile = tileMap.getColTile((int) (x + width/ 2) - 1);
@@ -73,11 +79,11 @@ public class Player {
 		bottomLeft = tileMap.getTile(bottomTile, leftTile) == 0;
 		bottomRight = tileMap.getTile(bottomTile, rightTile) == 0;
 	}
-	
+
 	//////////////////////////////////////
-	
+
 	public void update(){
-		
+
 		//determine next position
 		if (left) {
 			dx -= moveSpeed;
@@ -105,13 +111,13 @@ public class Player {
 				}
 			}
 		}
-		
+
 		if (jumping) {
 			dy = jumpStart;
 			falling = true;
 			jumping = false;
 		}
-		
+
 		if (falling) {
 			dy += gravity;
 			if (dy > maxFallingSpeed) {
@@ -121,18 +127,18 @@ public class Player {
 		else {
 			dy = 0;
 		}
-		
+
 		// check collisions
-		
+
 		int currCol = tileMap.getColTile((int) x);
 		int currRow = tileMap.getRowTile((int) y);
-		
+
 		double tox = x + dx;
 		double toy = y + dy;
-		
+
 		double tempx = x;
 		double tempy = y;
-		
+
 		calculateCorners(x, toy);
 		if(dy < 0){
 			if (topLeft || topRight) {
@@ -153,7 +159,7 @@ public class Player {
 				tempy += dy;
 			}
 		}
-		
+
 		calculateCorners(tox, y);
 		if(dx < 0){
 			if (topLeft || bottomLeft) {
@@ -173,32 +179,38 @@ public class Player {
 				tempx += dx;
 			}
 		}
-		
+
 		if (!falling) {
 			calculateCorners(x, y + 1);
 			if (!bottomLeft && !bottomRight) {
 				falling = true;
 			}
 		}
-		
+
 		x = tempx;
 		y = tempy;
-		
+
 		//move the map
-		tileMap.setx((int) (GamePanel.WIDTH / 2 - x));
-		tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
+		if(camera){
+			tileMap.setx((int) (GamePanel.WIDTH / 2 - x));
+			tileMap.sety((int) (GamePanel.HEIGHT / 2 - y));
+		}
+
+		/*if (x <= 86 && x >= 42 && y == 438){
+			System.out.println(name + " WIN!!!!!!");
+		}*/
 	}
-	
+
 	public void draw(Graphics2D g){
 		int tx = tileMap.getx();
 		int ty = tileMap.gety();
-		
-		g.setColor(Color.RED);
+
+		g.setColor(color);
 		g.fillRect(
-			(int) (tx + x - width / 2),	
-			(int) (ty + y - height / 2),
-			width,
-			height
-		);
+				(int) (tx + x - width / 2),	
+				(int) (ty + y - height / 2),
+				width,
+				height
+				);
 	}
 }

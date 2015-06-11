@@ -1,7 +1,7 @@
 package gameConnection;
 import game.Game;
-import gameConnection.threads.InputThread;
-import gameConnection.threads.OutputThread;
+import gameConnection.threads.ClientInput;
+import gameConnection.threads.ClientOutput;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -29,8 +29,8 @@ public class ClientSide {
 		this.game = g;
 		
 		//create the threads needed for the input and output of the client
-		input = new Thread(new InputThread(clientSocket, this.ip, this.m));
-		output = new Thread(new OutputThread(clientSocket, this.m, this.game));
+		input = new Thread(new ClientInput(clientSocket, this.ip, this.m));
+		output = new Thread(new ClientOutput(clientSocket, this.m, this.game));
 		
 		//start the threads
 		input.start();
